@@ -222,6 +222,10 @@ this.app.get('/api/debug/aggregation/:timeframe', (req, res) => {
     this.app.get('/', (req, res) => {
       res.sendFile(path.join(__dirname, '../../public/index.html'));
     });
+
+    this.app.get('/cvd.html', (req, res) => {
+      res.sendFile(path.join(__dirname, '../../public/cvd.html'));
+    });
   }
 
   start() {

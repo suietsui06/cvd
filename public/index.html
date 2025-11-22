@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CVD Trading Monitor</title>
+  <title>CVD Trading Monitor - 3 Synchronized Charts</title>
   <link rel="stylesheet" href="/css/style.css">
   <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
 </head>
 <body>
   <div class="container">
     <header>
-      <h1>📊 CVD Trading Monitor</h1>
+      <h1>📊 CVD Trading Monitor - 3 Synchronized Charts</h1>
       <div class="status">
         <span id="status" class="status-indicator">⚫ Connecting...</span>
         <span id="symbol">BTC/USDT</span>
@@ -18,21 +18,18 @@
           <span class="live-dot"></span>
           LIVE
         </span>
+
+           <!-- ✅ NEW: Streaming Mode Selector -->
+        <select id="streamingMode" style="margin-left: 20px; padding: 5px 10px; background: #1a2332; color: #00ff88; border: 1px solid #3b82f6; border-radius: 4px; font-weight: 600; cursor: pointer;">
+          <option value="candle" selected>📊 Candle Mode (1 min update)</option>
+          <option value="realtime">⚡ Real-time Trade Stream (every trade)</option>
+        </select>
       </div>
+      
     </header>
 
     <div class="grid">
-      <div class="card analysis-card">
-  <h2>
-    🤖 AI Analysis
-    <span id="analysisTime" style="font-size: 0.8em; opacity: 0.7;"></span>
-  </h2>
-  <div id="analysisContent">
-    <div class="analysis-loading">Analyzing...</div>
-  </div>
-</div>
-
-      <!-- Metrics -->
+      <!-- Metrics Card -->
       <div class="card">
         <h2>Current Metrics</h2>
         <div class="metrics">
@@ -55,28 +52,40 @@
         </div>
       </div>
 
-      <!-- ✅ COMBINED CHART: Price + CVD (Dual Axis) -->
-      <div class="card chart-card chart-card-large">
-        <h2>
-          Price & CVD Chart (Dual Axis)
-          <select id="timeframe">
-            <option value="1m">1 Minute (realtime)</option>
-            <option value="5m" selected>5 Minutes (5x1m)</option>
-            <option value="15m">15 Minutes (15x1m)</option>
-            <option value="1h">1 Hour (60x1m)</option>
-          </select>
-        </h2>
-        <div id="combinedChart"></div>
-      </div>
-
-      <!-- Delta Chart -->
-      <div class="card chart-card">
-        <h2>CVD Delta (Buy/Sell Pressure)</h2>
-        <div id="deltaChart"></div>
-      </div>
-
-      <!-- Buy/Sell Volume -->
+      <!-- Timeframe Selector -->
       <div class="card">
+        <h2>⏱️ Timeframe Selector</h2>
+        <select id="timeframe" style="width: 100%; padding: 10px; border-radius: 6px; background: #1e293b; color: #00ff88; border: 1px solid #3b82f6; font-size: 14px; cursor: pointer;">
+          <option value="1m">1 Minute (realtime)</option>
+          <option value="5m" selected>5 Minutes (5x1m)</option>
+          <option value="15m">15 Minutes (15x1m)</option>
+          <option value="1h">1 Hour (60x1m)</option>
+        </select>
+      </div>
+
+      <!-- Chart 1: CVD & Price (Dual Axis) -->
+        <div id="chart-1"></div>
+
+      <!-- Chart 2: Volume Stacked (Buy/Sell) -->
+        <div id="chart-2"></div>
+   <!-- Chart 3: Delta Volume (Buy - Sell) -->
+        <div id="chart-4"></div>
+      <!-- Chart 3: Delta Volume (Buy - Sell) -->
+        <div id="chart-3"></div>
+
+      <!-- AI Analysis Card (CVD-Based) -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <h2>🤖 CVD Analysis (AI-Powered)</h2>
+        <div id="analysisContent" style="background: rgba(13, 110, 253, 0.1); padding: 15px; border-radius: 8px;">
+          <div class="analysis-loading">
+            <div style="font-size: 1.2em; margin-bottom: 10px;">⏳</div>
+            <div>Analyzing CVD signals...</div>
+            <div style="font-size: 0.85em; opacity: 0.7; margin-top: 5px;">
+              Waiting for market data to generate trading signals
+            </div>
+          </div>
+        </div>
+      </div>
         <h2>Volume Analysis (Current Candle)</h2>
         <div class="volume-bars">
           <div class="volume-bar">
@@ -96,6 +105,38 @@
               </div>
             </div>
             <div class="volume-value" id="sellVolumeValue">0</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts Information -->
+      <div class="card">
+        <h2>📋 3 Synchronized Charts</h2>
+        <div style="font-size: 12px; color: #cbd5e1; line-height: 1.8;">
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #3b82f6;">Chart 1: CVD & Price</strong><br/>
+            Left Y-Axis: CVD (Cumulative Volume Delta)<br/>
+            Right Y-Axis: Price (USDT)<br/>
+            Type: Dual-axis Line Chart
+          </div>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #00ff88;">Chart 2: Volume (Buy/Sell)</strong><br/>
+            🟩 Buy Volume (Green) - Stacked Bottom<br/>
+            🟥 Sell Volume (Red) - Stacked Top<br/>
+            Type: Stacked Bar Chart
+          </div>
+          <div>
+            <strong style="color: #ff6b6b;">Chart 3: Delta Volume</strong><br/>
+            🟩 Positive = More Buys<br/>
+            🟥 Negative = More Sells<br/>
+            Type: Color-coded Bar Chart
+          </div>
+          <div style="margin-top: 15px; padding-top: 10px; border-top: 1px solid #3b82f6;">
+            <strong>🔗 Synchronized Features:</strong><br/>
+            • Zoom on one chart → All charts zoom together<br/>
+            • Pan on one chart → All charts pan together<br/>
+            • Tooltip shows data from all 3 charts<br/>
+            • All charts share the same X-axis (Time)
           </div>
         </div>
       </div>
