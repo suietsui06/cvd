@@ -1,0 +1,41 @@
+{
+  "name": "cvd-trading-bot",
+  "version": "1.0.0",
+  "description": "CVD Trading Bot with WebSocket, MongoDB, Discord Alerts",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "node src/test.js",
+    "lint": "eslint src/**/*.js",
+    "format": "prettier --write src/**/*.js"
+  },
+  "keywords": [
+    "trading",
+    "cvd",
+    "crypto",
+    "websocket",
+    "discord"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.2",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "eventemitter3": "^5.0.1",
+    "express": "^4.18.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "mongodb": "^6.2.0",
+    "mongoose": "^8.0.0",
+    "node-cron": "^3.0.3",
+    "websocket": "^1.0.34",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "nodemon": "^3.0.1",
+    "prettier": "^3.1.0"
+  }
+}

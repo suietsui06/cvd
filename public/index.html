@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CVD Trading Monitor</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts@3.44.0/dist/apexcharts.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>📊 CVD Trading Monitor</h1>
+      <div class="status">
+        <span id="status" class="status-indicator">⚫ Connecting...</span>
+        <span id="symbol">BTC/USDT</span>
+        <span id="liveIndicator" class="live-indicator" style="display: none;">
+          <span class="live-dot"></span>
+          LIVE
+        </span>
+      </div>
+    </header>
+
+    <div class="grid">
+      <div class="card analysis-card">
+  <h2>
+    🤖 AI Analysis
+    <span id="analysisTime" style="font-size: 0.8em; opacity: 0.7;"></span>
+  </h2>
+  <div id="analysisContent">
+    <div class="analysis-loading">Analyzing...</div>
+  </div>
+</div>
+
+      <!-- Metrics -->
+      <div class="card">
+        <h2>Current Metrics</h2>
+        <div class="metrics">
+          <div class="metric">
+            <span class="label">Price</span>
+            <span class="value positive" id="price">-</span>
+          </div>
+          <div class="metric">
+            <span class="label">CVD</span>
+            <span class="value" id="cvd">-</span>
+          </div>
+          <div class="metric">
+            <span class="label">Delta (1m)</span>
+            <span class="value" id="delta">-</span>
+          </div>
+          <div class="metric">
+            <span class="label">Trades</span>
+            <span class="value" id="trades">-</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ✅ COMBINED CHART: Price + CVD (Dual Axis) -->
+      <div class="card chart-card chart-card-large">
+        <h2>
+          Price & CVD Chart (Dual Axis)
+          <select id="timeframe">
+            <option value="1m">1 Minute (realtime)</option>
+            <option value="5m" selected>5 Minutes (5x1m)</option>
+            <option value="15m">15 Minutes (15x1m)</option>
+            <option value="1h">1 Hour (60x1m)</option>
+          </select>
+        </h2>
+        <div id="combinedChart"></div>
+      </div>
+
+      <!-- Delta Chart -->
+      <div class="card chart-card">
+        <h2>CVD Delta (Buy/Sell Pressure)</h2>
+        <div id="deltaChart"></div>
+      </div>
+
+      <!-- Buy/Sell Volume -->
+      <div class="card">
+        <h2>Volume Analysis (Current Candle)</h2>
+        <div class="volume-bars">
+          <div class="volume-bar">
+            <div class="volume-label">Buy Volume</div>
+            <div class="volume-progress">
+              <div class="volume-fill buy" id="buyVolume" style="width: 0%">
+                <span id="buyVolumePercent">0%</span>
+              </div>
+            </div>
+            <div class="volume-value" id="buyVolumeValue">0</div>
+          </div>
+          <div class="volume-bar">
+            <div class="volume-label">Sell Volume</div>
+            <div class="volume-progress">
+              <div class="volume-fill sell" id="sellVolume" style="width: 0%">
+                <span id="sellVolumePercent">0%</span>
+              </div>
+            </div>
+            <div class="volume-value" id="sellVolumeValue">0</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
