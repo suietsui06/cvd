@@ -297,6 +297,22 @@ this.app.get('/api/debug/aggregation/:timeframe', (req, res) => {
         });
 
         // 5. Listen to CVD events
+
+        // ✅ NEW: Real-time Trade Tick (every trade!)
+        this.cvd.on('tradeTick', (data) => {
+          this.broadcast({
+            type: 'tradeTick',
+            data: {
+              price: data.price,
+              cvd: data.cvd,
+              delta: data.delta,
+              timestamp: data.timestamp,
+              buyVolume: data.buyVolume,
+              sellVolume: data.sellVolume
+            }
+          });
+        });
+
         this.cvd.on('cvdUpdate', (data) => {
           this.broadcast({
             type: 'cvdUpdate',
